@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Add or Edit Credit Card</title>
+    </head>
+    <body>
+    	<h1>Add or Edit Credit Cards</h1>
+        <div>
+	        <form action="#" th:action="@{/add-edit-card}" th:object="${creditCardForm}" method="post">
+	        	<div th:if="${#fields.hasErrors('global')}" th:errors="*{global}">...</div>
+	            <div><label> Credit Card Number : <input type="text" th:field="*{number}"/><em th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Name Error</em></label></div>
+	            <div><label> Cardholder Name: <input type="text" th:field="*{name}"/><em th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</em></label></div>
+	            <div><label> Expire date (MM/YY): <input type="text" th:field="*{month}"/>/
+	            <input type="text" th:field="*{year}"/>
+	            <em th:if="${#fields.hasErrors('month')}" th:errors="*{month}">Month Error</em>
+	            <em th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year Error</em>
+	             </label></div>
+	            <div><input type="submit" value="Ok"/> <a th:href="@{/search-cards}">Cancel</a></div>
+	        </form>
+        </div>
+    </body>
+</html>

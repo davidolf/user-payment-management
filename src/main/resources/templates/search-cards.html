@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Search cards</title>
+    </head>
+    <body>
+    	<h1>Search Cards</h1>
+    	<div>
+    		User: [[${#httpServletRequest.remoteUser}]]
+    	</div>
+    	<form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    	<div th:if="${error}" th:text="${error}">...</div>
+    	<div><a th:href="@{/add-edit-card}">Add card</a></div>
+        <div>
+	        <form th:action="@{/search-cards}" method="get">
+	            <div><label> Search: <input type="text" name="search" th:value="${param.search}" /> </label>
+	            <input type="submit" value="Search"/></div>
+	        </form>
+        </div>
+        <table th:if="${cards}">
+       			<tr>
+       				<th th:if="${showUsers}">Username</th>
+					<th>Card Number</th>
+					<th>Name</th>
+					<th>MM/YY</th>
+				</tr>
+		   <th:block th:each="card : ${cards}">
+		      <tr>
+		      	<td th:text="${card.user.name}" th:if="${showUsers}">...</td>
+				<td th:text="${card.number}">...</td>
+				<td th:text="${card.name}">...</td>
+				<td th:inline="text">[[${card.month}]]/[[${card.year}]]</td>
+		      </tr>
+		   </th:block>
+		</table>
+    </body>
+</html>
